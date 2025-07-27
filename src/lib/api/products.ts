@@ -9,7 +9,9 @@ export type Product = {
 };
 
 export async function fetchProductById(id: string | number) {
-  const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+  const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
+    next: { revalidate: 60 }, // Revalidate cache every 60 seconds
+  });
   if (!res.ok) {
     throw new Error("Product not found");
   }
@@ -18,7 +20,9 @@ export async function fetchProductById(id: string | number) {
 }
 
 export async function fetchAllProducts() {
-  const res = await fetch("https://fakestoreapi.com/products");
+  const res = await fetch("https://fakestoreapi.com/products", {
+    next: { revalidate: 60 }, // Revalidate cache every 60 seconds
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch products");
