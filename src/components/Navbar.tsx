@@ -1,6 +1,7 @@
 'use client';
 import Link from "next/link";
 import React, { useState } from "react";
+import CartCounter from "./CartCounter";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -9,11 +10,11 @@ export default function Navbar() {
       <Link href="/" className="text-xl font-bold">
         Product Catalog
       </Link>
-      <div>
+      <div className="flex gap-4">
         <Link href="/" className=" mr-4 hover:underline">
           Home
         </Link>
-
+<CartCounter/>
         {isLoggedIn ? (
           <button onClick={() => setIsLoggedIn(false)}>Logout</button>
         ) : (
