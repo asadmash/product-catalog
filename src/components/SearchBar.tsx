@@ -32,7 +32,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     <input
       type="text"
       placeholder="Search products..."
-      className="input input-bordered input-sm w-64"
+      className="input input-bordered input-sm w-64 shadow-lg border-2 border-[#27548A] p-2 bg-[#fff]"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
     />
