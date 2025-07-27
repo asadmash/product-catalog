@@ -5,6 +5,7 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import { CartProvider } from "@/context/CartContext";
 import CartModal from "@/components/CartModal";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen flex-col">
+        <AuthProvider>
         <CartProvider>
           <Navbar />
           <CartModal />
@@ -36,6 +38,7 @@ export default function RootLayout({
             {children}
           </main>
         </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );
