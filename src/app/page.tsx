@@ -1,7 +1,7 @@
-import ProductCard from "@/components/ProductCard";
 import { fetchAllProducts, Product } from "@/lib/api/products";
 import SearchBar from "@/components/SearchBar";
 import FilteredProductList from "@/components/FilteredProductList";
+import { Suspense } from "react";
 
 
 export default async function page() {
@@ -21,7 +21,10 @@ export default async function page() {
 <SearchBar />
       </div>
 
-       <FilteredProductList allProducts={allProducts} />
+      
+        <Suspense fallback={<div>Loading search...</div>}>
+        <FilteredProductList allProducts={allProducts} />
+      </Suspense>
     </main>
 
   )
