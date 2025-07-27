@@ -1,21 +1,34 @@
 "use client";
 
-import { notFound, useParams } from "next/navigation";
+import { notFound, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
-
 import { Product, fetchProductById } from "@/lib/api/products";
+import { useAuth } from "@/context/AuthContext";
 
 export default function ProductPage() {
   const { id } = useParams();
-    const { dispatch } = useCart();
+ // Set up cart and auth context
+   const { dispatch } = useCart();
+  const { state: authState } = useAuth();
+//router tools
+  const router = useRouter();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+   // STEP 7: Auth check and redirect if unauthenticated
+  useEffect(() => {
+    if (!authState.isAuthenticated) {
+      router.push("/login");
+    }
+    setCheckingAuth(false);
+  }, [authState.isAuthenticated, router]);
 
   useEffect(() => {
-    if (!id) return;
+      if (!id || checkingAuth) return;
 
     const fetchData = async () => {
       try {
@@ -30,8 +43,9 @@ export default function ProductPage() {
     };
 
     fetchData();
-  }, [id]);
-
+  }, [id, checkingAuth]);
+  
+ if (checkingAuth) return <p>Checking authentication...</p>;
   if (loading) return <p>Loading product...</p>;
   if (!product) return <p>Product not found.</p>;
 
