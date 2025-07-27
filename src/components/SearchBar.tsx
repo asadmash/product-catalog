@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import debounce from "lodash.debounce";
 
-export default function SearchBar({ onSearch }: SearchBarProps) {
+export default function SearchBar() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const defaultValue = searchParams.get("q") || "";

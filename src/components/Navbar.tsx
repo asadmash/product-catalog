@@ -3,18 +3,22 @@ import Link from "next/link";
 import React, { useState } from "react";
 import CartCounter from "./CartCounter";
 import { useAuth } from "../context/AuthContext";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const { state, logout } = useAuth();
+   const pathname = usePathname();
   return (
     <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
       <Link href="/" className="text-xl font-bold">
         Product Catalog
       </Link>
       <div className="flex gap-4">
+        {pathname !== "/" && (
         <Link href="/" className=" mr-4 hover:underline">
           Home
         </Link>
+         )}
 <CartCounter/>
           {state.isAuthenticated ? (
           <>
