@@ -1,13 +1,10 @@
 import ProductCard from "@/components/ProductCard";
 import { fetchAllProducts, Product } from "@/lib/api/products";
 import SearchBar from "@/components/SearchBar";
-
-type Props = {
-  searchParams?: { q?: string };
-};
+import FilteredProductList from "@/components/FilteredProductList";
 
 
-export default async function page({ searchParams }: Props) {
+export default async function page() {
    let allProducts: Product[] = [];
   try {
     allProducts = await fetchAllProducts();
@@ -15,11 +12,6 @@ export default async function page({ searchParams }: Props) {
     console.error("Error fetching products:", error);
   }
 
-  const query = searchParams?.q?.toLowerCase() || "";
-
-  const filtered = allProducts.filter((product) =>
-    product.title.toLowerCase().includes(query)
-  );
 
   return (
 
@@ -29,11 +21,7 @@ export default async function page({ searchParams }: Props) {
 <SearchBar />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {filtered.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+       <FilteredProductList allProducts={allProducts} />
     </main>
 
   )
