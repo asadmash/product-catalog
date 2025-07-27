@@ -64,8 +64,6 @@ export default function ProductPage() {
         <h1 className="text-3xl font-bold">{product.title}</h1>
         <p className="text-gray-600">{product.description}</p>
         <p className="text-xl font-semibold text-green-600">${product.price}</p>
-      </div>
-
         <div className="flex gap-4">
           <button
             className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
@@ -74,6 +72,8 @@ export default function ProductPage() {
             Add to Cart
           </button>
         </div>
+      </div>
+
     </div>
   );
 }
