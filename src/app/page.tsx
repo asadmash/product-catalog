@@ -15,12 +15,12 @@ export default async function Page() {
     <main className="p-6">
       <div className="flex justify-between items-center flex-col sm:flex-row mb-6">
         <h1 className="text-3xl font-bold">All Products</h1>
-        <Suspense fallback={<div>Loading search...</div>}>
+        <Suspense fallback={<div>Loading</div>}>
           <SearchBar />
         </Suspense>
       </div>
 
-      <Suspense fallback={<div>Loading search...</div>}>
+      <Suspense fallback={<div>Loading</div>}>
         <FilteredProductList allProducts={allProducts} />
       </Suspense>
     </main>
