@@ -4,6 +4,7 @@ import "./globals.css";
 import React from "react";
 import Navbar from "@/components/Navbar";
 import { CartProvider } from "@/context/CartContext";
+import CartModal from "@/components/CartModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className="min-h-screen flex-col">
         <CartProvider>
           <Navbar />
+          <CartModal />
           <main className="flex-grow container mx-auto px-4 py-6">
             {children}
           </main>
