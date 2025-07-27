@@ -1,26 +1,40 @@
-'use client';
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import debounce from "lodash.debounce";
 
-interface SearchBarProps {
-  onSearch: (searchTerm: string) => void;
-}
+export default function SearchBar({ onSearch }: SearchBarProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const defaultValue = searchParams.get("q") || "";
+  const [query, setQuery] = useState(defaultValue);
 
-export default function SearchBar({onSearch}: SearchBarProps){
-  const [input, setInput] = useState('');
+  // Debounced search function
+  const handleSearch = debounce((value: string) => {
+    const params = new URLSearchParams(window.location.search);
+    if (value.trim()) {
+      params.set("q", value);
+    } else {
+      params.delete("q");
+    }
+    router.replace(`/?${params.toString()}`);
+  }, 300); // 300ms debounce
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setInput(value);
-    onSearch(value);
-  }
+  useEffect(() => {
+    handleSearch(query);
+    // cancel debounce on unmount
+    return () => {
+      handleSearch.cancel();
+    };
+  }, [query]);
 
-  return(
+  return (
     <input
-    type="text"
-    placeholder="Search Products..."
-    value={input}
-    onChange={handleChange}
-    className="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      type="text"
+      placeholder="Search products..."
+      className="input input-bordered input-sm w-64"
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
     />
-  )
+  );
 }
