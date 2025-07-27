@@ -2,13 +2,13 @@
 
 # Product Catalog Web App
 
-A modern product catalog web application built with **Next.js App Router**. This project demonstrates full-stack features including product browsing, filtering, favorites/cart handling, mock authentication, and performance optimization
+A modern product catalog web application built with **Next.js App Router**. This project demonstrates Next.js features including routing, filtering, cart handling, mock authentication, and performance optimization
 
 ---
 
 ## 🚀 Features
 
-**Search & Filter** — Find products by name or category
+**Search & Filter** — Find products by name
 **Dynamic Product Pages** — Each product has its own route and detail view
 **Favorites & Cart** — Add items to favorites or shopping cart with persistent state
 **Mock Authentication** — Simulated login system to restrict access to some routes
