@@ -2,9 +2,10 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import CartCounter from "./CartCounter";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { state, logout } = useAuth();
   return (
     <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
       <Link href="/" className="text-xl font-bold">
@@ -15,15 +16,20 @@ export default function Navbar() {
           Home
         </Link>
 <CartCounter/>
-        {isLoggedIn ? (
-          <button onClick={() => setIsLoggedIn(false)}>Logout</button>
+          {state.isAuthenticated ? (
+          <>
+            <span>admin</span>
+            <button
+              onClick={logout}
+              className="bg-blue-600 hover:bg-red-700 px-5 rounded"
+            >
+              Log out
+            </button>
+          </>
         ) : (
-          <Link
-            href={`/login`}
-            className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-700"
-          >
-            Login
-          </Link>
+          <button className="bg-red-600 hover:bg-blue-700 px-5 rounded">
+            <a href="/login">Log in</a>
+          </button>
         )}
       </div>
     </nav>
