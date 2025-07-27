@@ -28,5 +28,3 @@ A modern product catalog web application built with **Next.js App Router**. This
 - **FakeStoreAPI** (external data source)
 
 ---
-
-> > > > > > > 74624327546c2437191c390fb619b850c95b366e
