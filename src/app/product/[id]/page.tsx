@@ -9,17 +9,17 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function ProductPage() {
   const { id } = useParams();
- // Set up cart and auth context
-   const { dispatch } = useCart();
+  // Set up cart and auth context
+  const { dispatch } = useCart();
   const { state: authState } = useAuth();
-//router tools
+  //router tools
   const router = useRouter();
 
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
-   // STEP 7: Auth check and redirect if unauthenticated
+  // STEP 7: Auth check and redirect if unauthenticated
   useEffect(() => {
     if (!authState.isAuthenticated) {
       router.push("/login");
@@ -28,7 +28,7 @@ export default function ProductPage() {
   }, [authState.isAuthenticated, router]);
 
   useEffect(() => {
-      if (!id || checkingAuth) return;
+    if (!id || checkingAuth) return;
 
     const fetchData = async () => {
       try {
@@ -44,13 +44,13 @@ export default function ProductPage() {
 
     fetchData();
   }, [id, checkingAuth]);
-  
- if (checkingAuth) return <p>Checking authentication...</p>;
+
+  if (checkingAuth) return <p>Checking authentication...</p>;
   if (loading) return <p>Loading product...</p>;
   if (!product) return <p>Product not found.</p>;
 
-// handle add to cart function
- const handleAddToCart = () => {
+  // handle add to cart function
+  const handleAddToCart = () => {
     dispatch({
       type: "ADD_ITEM",
       payload: {
@@ -58,10 +58,10 @@ export default function ProductPage() {
         name: product.title,
         price: product.price,
         image: product.image,
+        quantity: product.quantity,
       },
     });
   };
-
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 md:pt-20 grid md:grid-cols-2 gap-10">
@@ -87,7 +87,6 @@ export default function ProductPage() {
           </button>
         </div>
       </div>
-
     </div>
   );
 }

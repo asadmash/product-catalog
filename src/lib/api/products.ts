@@ -5,6 +5,7 @@ export type Product = {
   price: number;
   description: string;
   image: string;
+  quantity: number;
 };
 
 export async function fetchProductById(id: string | number) {
